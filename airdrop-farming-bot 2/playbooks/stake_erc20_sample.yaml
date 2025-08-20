@@ -1,0 +1,18 @@
+network:
+  name: sepolia
+  rpc_url: ${RPC_URL}
+  chain_id: 11155111
+strategy: strong
+
+wallets:
+  - ${PRIVATE_KEY}
+
+tasks:
+  - kind: stake_erc20
+    token_address: "0xYOUR_ERC20_TOKEN"
+    staking_contract: "0xYOUR_STAKING_CONTRACT"
+    # abi_path: "data/your_staking_abi.json" # 若非 stake(uint256)，提供 ABI + method_name
+    method_name: "stake"
+    amount_wei: "100000000000000000"
+    wait_receipt: true
+    rate_limit_sec: 3

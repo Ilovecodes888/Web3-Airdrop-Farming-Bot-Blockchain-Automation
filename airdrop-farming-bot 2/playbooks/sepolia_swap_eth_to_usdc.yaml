@@ -1,0 +1,18 @@
+network:
+  name: sepolia
+  rpc_url: ${RPC_URL}
+  chain_id: 11155111
+strategy: mild
+
+wallets:
+  - ${PRIVATE_KEY}
+
+tasks:
+  - kind: swap_uniswap_v2
+    router_address: "0xeE567Fe1712Faf6149d80dA1E6934E354124CfE3"   # Uniswap V2 Router02 (Sepolia)
+    weth_address:   "0xfff9976782d46cc05630d1f6ebab18b2324d6b14"   # WETH (Sepolia)
+    token_in:       "ETH"
+    token_out:      "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238"   # USDC (Sepolia, Circle)
+    amount_in_wei:  "100000000000000"                               # 0.0001 ETH
+    amount_out_min: "0"                                             # test only; set >0 in real use
+    deadline_sec:   600

@@ -1,0 +1,19 @@
+network:
+  name: sepolia
+  rpc_url: ${RPC_URL}
+  chain_id: 11155111
+strategy: balanced
+
+wallets:
+  - ${PRIVATE_KEY}
+
+tasks:
+  - kind: mint_erc721
+    contract_address: "0xYOUR_NFT_CONTRACT"
+    mode: "abi"
+    abi_path: "data/your_nft_abi.json"
+    method_name: "safeMint"
+    args: ["${WALLET}"]
+    value_wei: "0"
+    wait_receipt: true
+    rate_limit_sec: 2
