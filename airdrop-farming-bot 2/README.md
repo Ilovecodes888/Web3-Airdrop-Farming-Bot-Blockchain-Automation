@@ -1,26 +1,27 @@
-# Airdrop Farming Bot (Resume Edition)
+Airdrop Farming Bot
 
-Playbook 驱动 / Testnet 优先 / 默认 Dry‑run / 可插拔任务（swap、NFT 批量铸造、approve+stake）/ 反女巫策略（mild|balanced|strong）
+Playbook-driven bot for testnets, featuring dry-run mode, pluggable tasks (swap, NFT batch minting, approve+stake), and anti-Sybil strategies (mild, balanced, strong).
 
-## ⚡ 快速开始（新手友好）
+## ⚡ Quick Start
+
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env && nano .env
-# 方式A：run.py（无需设置 PYTHONPATH）
+# Option A: run.py (no PYTHONPATH setup needed)
 python run.py run --plan playbooks/sepolia_swap_eth_to_usdc.yaml --dry-run
-# 方式B：专业用法（可编辑安装）
+# Option B: Advanced (editable install)
 pip install -e .
 python -m bot.cli run --plan playbooks/sepolia_swap_eth_to_usdc.yaml --dry-run
 ```
 
-## 目录
+## Directory Structure
 ```
 src/
   bot/
-    core/         # wallet, rpc, config, logger, task 基类
-    tasks/        # 可插拔任务：swap_uniswap_v2, mint_erc721, stake_erc20
-    utils/        # tx_helper(重试), strategy(反女巫策略)
+    core/         # Wallet, RPC, config, logger, task base classes
+    tasks/        # Pluggable tasks: swap_uniswap_v2, mint_erc721, stake_erc20
+    utils/        # tx_helper (retry), strategy (anti-Sybil)
     scheduler.py
     cli.py
 playbooks/
@@ -38,34 +39,33 @@ docs/
   Resume_Bullets_CN_EN.md
 ```
 
-## 🧪 一键示例（Sepolia：ETH → USDC）
+## 🧪 One-Click Example (Sepolia: ETH → USDC)
 ```bash
 python run.py run --plan playbooks/sepolia_swap_eth_to_usdc.yaml --dry-run
 python run.py run --plan playbooks/sepolia_swap_eth_to_usdc.yaml
 ```
 
-## 🧰 NFT 批量铸造 / Staking
+## 🧰 NFT Batch Minting / Staking
 ```bash
-# NFT：通用模式（无需 ABI）
+# NFT: Common mode (no ABI required)
 python run.py run --plan playbooks/nft_batch_mint_common.yaml --dry-run
-# NFT：ABI 模式（更稳）
+# NFT: ABI mode (more robust)
 python run.py run --plan playbooks/nft_batch_mint_with_abi.yaml --dry-run
-# Staking：approve + stake
+# Staking: approve + stake
 python run.py run --plan playbooks/stake_erc20_sample.yaml --dry-run
 ```
 
-## 🛡️ 反女巫策略预设
-在 playbook 顶部设置：`strategy: mild|balanced|strong`  
-详见 `docs/Strategy.md`。若同时配置 `jitter:`，将覆盖预设的间隔范围。
+## 🛡️ Anti-Sybil Strategy Presets
+Set `strategy: mild|balanced|strong` at the top of your playbook. See `docs/Strategy.md` for details. Configuring `jitter:` will override the preset interval ranges.
 
 ---
 
-# 📸 项目截图区（模板）
-- 终端 dry‑run 截图、真实交易哈希、`run_report.csv` 片段、Mermaid 架构图、风控要点清单。详见仓库 README 中对应段落。
+# 📸 Project Screenshots (Template)
+- Dry-run terminal output, real transaction hashes, `run_report.csv` snippets, Mermaid architecture diagram, risk control checklist. See the corresponding sections in the repository README.
 
 ---
 
-## 🧭 推送到 GitHub
+## 🧭 Push to GitHub
 ```bash
 git init
 git add .
@@ -75,6 +75,6 @@ git remote add origin https://github.com/<yourname>/airdrop-farming-bot.git
 git push -u origin main
 ```
 
-## ⚠️ 安全声明
-- 仅用于**技术学习与测试网**；遵守法律与协议 ToS。
-- 不要把私钥/助记词提交到仓库；`.gitignore` 已默认忽略 `.env`。
+## ⚠️ Disclaimer
+- For **technical learning and testnets** only; comply with laws and protocol ToS.
+- Do not commit private keys/mnemonics to the repository; `.env` is ignored by default in `.gitignore`.
